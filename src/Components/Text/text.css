@@ -3,6 +3,11 @@
     font-family: 'Signika', sans-serif;
     font-weight: bold;
 }
+.sub-heading{
+    color: white;
+    font-family: 'Signika', sans-serif;
+    font-weight: bold;
+}
 .box-title{
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     font-weight: bold;
@@ -14,10 +19,16 @@
     font-family: 'Signika', sans-serif;
     color: white;
 }
+.error{
+    color: #FA1C1C;
+}
 
 @media (min-width: 1280px) {
     .main-heading{
         font-size: 100px;
+    }
+    .sub-heading{
+        font-size: 30px;
     }
     .box-title{
         font-size: 20px;

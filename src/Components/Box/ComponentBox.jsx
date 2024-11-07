@@ -1,8 +1,9 @@
 import "./box.css"
 
-const ComponentBox = ({children}) => {
+const ComponentBox = ({children,isWelcome}) => {
+  const welcomePageClass = isWelcome?"welcome":"non-welcome"
   return (
-    <div className="w-50 component-box gap-3">
+    <div className={`component-box gap-3 ${welcomePageClass}`}>
       {children}
     </div>
   )

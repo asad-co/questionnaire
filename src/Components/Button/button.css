@@ -2,3 +2,33 @@
     background: #BBE94A;
     border-radius: 25px;
 }
+.secondary-button{
+    background: #EDB6D2;
+    border-radius: 25px;
+}
+.tertiary-button{
+    background: #FFF;
+    border-radius: 25px;
+}
+.image-button{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background: #6D6D6D;
+    color: white;
+    font-size: 19px;
+    border-radius: 25px;
+}
+.selected-img-btn{
+    border: 1px solid white;
+}
+.ellipse{
+    width: 25px;
+    height: 25px;
+    border: 5px solid black;
+    border-radius: 100%;
+    position: absolute;
+    top:-13px;
+    background-color: white;
+}

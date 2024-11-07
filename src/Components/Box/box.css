@@ -27,5 +27,13 @@
 .component-box{
     display: flex;
     flex-direction: column;
+}
+.welcome{
     align-items: end;
+    width: 50%;
+}
+.non-welcome{
+    width: 100%;
+    justify-content: center;
+    align-items: center;
 }

@@ -18,7 +18,7 @@ const Welcome = () => {
     return (
         <Main>
             <SubMain rightAligned={true}>
-                <ComponentBox>
+                <ComponentBox isWelcome={true}>
                     <MainHeading>Questionnaire</MainHeading>
                     <TextBox>
                         <BoxTitle>

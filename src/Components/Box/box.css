@@ -9,3 +9,23 @@
 .sub-main{
     display: flex;
 }
+
+.right-align{
+    flex-direction: column;
+    width: 100%;
+    justify-content: end;
+    align-items: end;
+}
+
+.text-box{
+    background: #EDB6D2;
+    border-radius: 25px;
+    display: flex;
+    flex-direction: column;
+}
+
+.component-box{
+    display: flex;
+    flex-direction: column;
+    align-items: end;
+}

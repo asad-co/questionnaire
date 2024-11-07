@@ -1,9 +1,9 @@
 
 const Description = ({ children }) => {
     return (
-        <div>
+        <span className="description">
             {children}
-        </div>
+        </span>
     )
 }
 

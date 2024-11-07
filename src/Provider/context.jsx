@@ -9,10 +9,14 @@ export const QuestionnaireProvider = ({ children }) => {
         setEmailAddress(value)
     }
 
+    const beginSurvey = ()=>{
+        console.log({emailAddress})
+    }
+
     return (
         <questionnaireContext.Provider
             value={{
-                emailAddress, onChangeEmailAddress
+                emailAddress, onChangeEmailAddress,beginSurvey
             }}>
             {children}
         </questionnaireContext.Provider>

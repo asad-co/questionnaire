@@ -1,4 +1,58 @@
 .main-heading{
     color: white;
     font-family: 'Signika', sans-serif;
+    font-weight: bold;
 }
+.box-title{
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-weight: bold;
+}
+.description{
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+.label{
+    font-family: 'Signika', sans-serif;
+    color: white;
+}
+
+@media (min-width: 1280px) {
+    .main-heading{
+        font-size: 100px;
+    }
+    .box-title{
+        font-size: 20px;
+    }
+    .description{
+        font-size: 17px;
+    }
+    .label{
+        font-size: 17px;
+    }
+}
+
+@media (min-width:1024px) {
+
+}
+
+
+@media (min-width: 1024px) and (max-width: 1279px) {
+
+}
+
+@media (min-width: 768px) and (max-width: 1023px) {
+
+}
+
+@media (min-width: 640px) and (max-width: 767px) {
+
+}
+@media (min-width: 768px){
+   
+}
+@media (max-width: 767px){
+   
+}
+@media (max-width: 639px) {
+
+}
+

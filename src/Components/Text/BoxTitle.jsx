@@ -1,7 +1,8 @@
+import "./text.css"
 
 const BoxTitle = ({children}) => {
   return (
-    <span>
+    <span className="box-title">
       {children}
     </span>
   )

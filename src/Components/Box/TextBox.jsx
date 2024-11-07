@@ -1,7 +1,8 @@
+import "./box.css"
 
 const TextBox = ({ children }) => {
     return (
-        <div>
+        <div className="text-box p-4 gap-3">
             {children}
         </div>
     )

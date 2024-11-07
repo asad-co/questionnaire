@@ -1,4 +1,4 @@
-// import "./input.css"
+import "./input.css"
 
 const InputField = ({ type = "text",inputRef,thisId, value, onChange, placeholder, name, required = false, disabled = false, props, className,accept,style, step, onMouseEnter,readOnly }) => {
   return (
@@ -19,7 +19,7 @@ const InputField = ({ type = "text",inputRef,thisId, value, onChange, placeholde
       style={{
         ...style
       }}
-      className={`${className}`}
+      className={`${className} input-text`}
       {...props}
     />
   );

@@ -1,7 +1,7 @@
 
 const Label = ({children}) => {
   return (
-    <span>
+    <span className="label">
         {children}
     </span>
   )

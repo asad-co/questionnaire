@@ -12,9 +12,19 @@ import blackShoes from "../assets/imgs/blackShoes.png"
 import orangeShoes from "../assets/imgs/orangeShoes.png"
 import "../assets/imgs/orangeShoes.png"
 import ArrowSVG from "../assets/svgs/ArrowSVG"
+import { useContext, useEffect } from "react"
+import questionnaireContext from "../Provider/context"
 
 const Choice = () => {
     const navigate = useNavigate()
+
+    const {errors,firstQuestion, onChangeFirstQuestion, submitChoices, emailAddress} = useContext(questionnaireContext)
+
+    useEffect(()=>{
+        if(!emailAddress){
+            navigate("/")
+        }
+    },[])
     return (
         <Main>
             <SubMain>
@@ -23,11 +33,24 @@ const Choice = () => {
                     <SubHeading>What is your prefferred choice?</SubHeading>
 
                     <div className="d-flex gap-3">
-                        <ImageButton isSelected={true} imgSrc={orangeShoes} label={"Nike Orange"} />
-                        <ImageButton imgSrc={blackShoes} label={"Nike Orange"} />
+                        <ImageButton 
+                        isSelected={firstQuestion==="nike orange"} 
+                        imgSrc={orangeShoes} 
+                        onClick={()=>{
+                            onChangeFirstQuestion("nike orange")
+                        }}
+                        label={"Nike Orange"} />
+
+                        <ImageButton 
+                        imgSrc={blackShoes} 
+                        isSelected={firstQuestion==="nike black"} 
+                        onClick={()=>{
+                            onChangeFirstQuestion("nike black")
+                        }}
+                        label={"Nike Black"} />
                     </div>
 
-                    <Error>Please Select one</Error>
+                    <Error>{errors["choices"]}</Error>
 
                     <div className="d-flex justify-content-between w-100">
 
@@ -40,7 +63,7 @@ const Choice = () => {
                         </PrimaryButton>
 
                         <PrimaryButton 
-                        onClick={()=>{navigate("/score")}}
+                        onClick={submitChoices}
                         className={"d-flex justify-content-between align-items-center gap-4 py-3 px-4"}>
                             <BoxTitle>Next</BoxTitle>
                             <ArrowSVG direction={"right"} />

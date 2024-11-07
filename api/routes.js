@@ -4,41 +4,43 @@ const Model = require("./Model")
 const { createClient } = require('@supabase/supabase-js');
 const supabaseUrl = process.env.SUPABASE_URL;
 const supabaseKey = process.env.SUPABASE_PUBLIC_ANON_KEY;
+const { body, validationResult } = require('express-validator');
 
 const supabase = createClient(supabaseUrl, supabaseKey);
 router.use(express.json());
 
-const isSurveyCompleted=async(email)=>{
+const isSurveyCompleted = async (email) => {
     const details = await Model.findOne({ email: email })
     if (details) {
         return true
     }
 }
 
-const isSurveyInProgress = async(email)=>{
+const isSurveyInProgress = async (email) => {
     const { data, error } = await supabase
-    .from('temporary_questionnaire')
-    .select()
-    .eq("email", email)
-    if (error || !data || data.length ===0) {
+        .from('temporary_questionnaire')
+        .select()
+        .eq("email", email)
+        
+    if (error || !data || data.length === 0) {
         return { data: null, result: false }
     }
-    return {data,result:true}
+    return { data:data[0], result: true }
 }
 
 router.post('/startSurvey', async (req, res) => {
     try {
         const email = req.body.email
         const isEmailUsed = await isSurveyCompleted(email)
-        if (isEmailUsed){
+        if (isEmailUsed) {
             return res.status(409).json({ message: "Survey already completed" })
         }
-        
+
         const { data, error } = await supabase
             .from('temporary_questionnaire')
             .select()
             .eq("email", email)
-            
+
         if (!error && data && data.length > 0) {
             return res.status(202).json({ data: data });
         }
@@ -63,32 +65,89 @@ router.post('/choice', async (req, res) => {
     try {
         const shoes = req.body.choice
         const email = req.body.email
-        if (!email || !['nike orange','nike black'].includes(shoes))
-            return res.status(400).json({message:"invalid input"})
-   
+        if (!email || !['nike orange', 'nike black'].includes(shoes))
+            return res.status(400).json({ message: "invalid input" })
+
         const isEmailUsed = await isSurveyCompleted(email)
-        if (isEmailUsed){
+        if (isEmailUsed) {
             return res.status(409).json({ message: "Survey already completed" })
         }
 
-        const {data,result} = await isSurveyInProgress(email)
-        if(!result){
+        const { data, result } = await isSurveyInProgress(email)
+        if (!result) {
             return res.status(404).json({ message: "survey not started" });
         }
-        else{
-            const updatedData = {step1:shoes,...data.progress}
+        else {
+            const updatedData = { step1: shoes, ...data.progress }
 
-            const {error} = await supabase
-            .from('temporary_questionnaire')
-            .update({
-                progress: updatedData
-            })
-            .eq('email', email)
+            const { error } = await supabase
+                .from('temporary_questionnaire')
+                .update({
+                    progress: updatedData
+                })
+                .eq('email', email)
             if (error) throw error
             return res.status(200).json({ message: "saved the choice" })
         }
     } catch (err) {
         console.log({ err })
+        res.status(500).json({ error: 'Internal Server Error' });
+    }
+});
+
+
+router.post('/score', [
+    body('comfort').isInt({ gt: 0, lt: 6 }).withMessage('Comfort must be a number between 1 and 5'),
+    body('looks').isInt({ gt: 0, lt: 6 }).withMessage('Looks must be a number between 1 and 5'),
+    body('price').isInt({ gt: 0, lt: 6 }).withMessage('Price must be a number between 1 and 5'),
+], async (req, res) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+        return res.status(400).json({ errors: errors.array() });
+    }
+
+    try {
+        const email = req.body.email;
+        const comfort = req.body.comfort;
+        const looks = req.body.looks;
+        const price = req.body.price;
+
+        const isEmailUsed = await isSurveyCompleted(email)
+        if (isEmailUsed) {
+            return res.status(409).json({ message: "Survey already completed" })
+        }
+
+        const { data, result } = await isSurveyInProgress(email)
+        if (!result) {
+            return res.status(404).json({ message: "survey not started" });
+        }
+        else {
+            
+            if (!data?.progress?.step1){
+                return res.status(400).json({message:"step 1 is not completed"})
+            }
+            const newEntry = await Model.create({
+                email:email,
+                firstQuestion:data.progress.step1,
+                secondQuestion:{
+                    comfort:comfort,
+                    looks:looks,
+                    price:price
+                }
+            })
+
+            if(!newEntry)
+                return res.status(500).json({ error: 'Failed to prcess' });
+            const { error } = await supabase
+                .from('temporary_questionnaire')
+                .delete()
+                .eq('email', email)
+            if (error) throw error
+            return res.status(200).json({ message: "Survey completed" })
+        }
+
+    } catch (err) {
+        console.log({ err });
         res.status(500).json({ error: 'Internal Server Error' });
     }
 });

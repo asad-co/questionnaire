@@ -9,10 +9,19 @@ import Error from "../Components/Text/Error"
 import ArrowSVG from "../assets/svgs/ArrowSVG"
 import PrimaryButton from "../Components/Button/PrimaryButton"
 import { useNavigate } from "react-router-dom"
+import { useContext, useEffect } from "react"
+import questionnaireContext from "../Provider/context"
 
 const Score = () => {
     const navigate = useNavigate()
+    const { errors, secondQuestion, onChangeSecondQuestion, submitScores, emailAddress } = useContext(questionnaireContext)
 
+    useEffect(() => {
+        if (!emailAddress) {
+            navigate("/")
+        }
+    }, [])
+    console.log({errors})
     return (
         <Main>
             <SubMain>
@@ -22,40 +31,55 @@ const Score = () => {
                     <SubHeading>How important are these aspects for you?</SubHeading>
 
                     <div className="d-flex flex-column gap-3">
-                        <RatingField maxRating={5} currentRating={3} updateRating={() => { }}>
+                        <RatingField
+                            maxRating={5}
+                            currentRating={secondQuestion.comfort}
+                            updateRating={(value) => {
+                                onChangeSecondQuestion({ comfort: value })
+                            }}>
                             <BoxTitle>Comfort</BoxTitle>
                         </RatingField>
-                        <Error>Please Select one</Error>
+                        <Error>{errors?.score?.['comfort']}</Error>
                     </div>
 
                     <div className="d-flex flex-column gap-3">
-                        <RatingField maxRating={5} currentRating={3} updateRating={() => { }}>
+                        <RatingField
+                            maxRating={5}
+                            currentRating={secondQuestion.looks}
+                            updateRating={(value) => {
+                                onChangeSecondQuestion({ looks: value })
+                            }}>
                             <BoxTitle>Looks</BoxTitle>
                         </RatingField>
-                        <Error>Please Select one</Error>
+                        <Error>{errors?.score?.['looks']}</Error>
                     </div>
 
                     <div className="d-flex flex-column gap-3">
-                        <RatingField maxRating={5} currentRating={3} updateRating={() => { }}>
+                        <RatingField
+                            maxRating={5}
+                            currentRating={secondQuestion.price}
+                            updateRating={(value) => {
+                                onChangeSecondQuestion({ price: value })
+                            }}>
                             <BoxTitle>Price</BoxTitle>
                         </RatingField>
-                        <Error>Please Select one</Error>
+                        <Error>{errors?.score?.['price']}</Error>
                     </div>
 
                     <div className="d-flex justify-content-between w-100">
 
-                        <PrimaryButton 
-                        onClick={()=>{navigate("/choice")}}
-                        theme={"secondary"} 
-                        className={"d-flex justify-content-between align-items-center gap-4 py-3 px-4"}>
+                        <PrimaryButton
+                            onClick={() => { navigate("/choice") }}
+                            theme={"secondary"}
+                            className={"d-flex justify-content-between align-items-center gap-4 py-3 px-4"}>
                             <ArrowSVG direction={"left"} />
                             <BoxTitle>Back</BoxTitle>
                         </PrimaryButton>
 
-                        <PrimaryButton 
-                        onClick={()=>{navigate("/thanks")}}
-                        theme={"tertiary"} 
-                        className={"d-flex justify-content-between align-items-center gap-4 py-3 px-4"}>
+                        <PrimaryButton
+                            onClick={submitScores}
+                            theme={"tertiary"}
+                            className={"d-flex justify-content-between align-items-center gap-4 py-3 px-4"}>
                             <BoxTitle>Send</BoxTitle>
                             <ArrowSVG direction={"right"} />
                         </PrimaryButton>

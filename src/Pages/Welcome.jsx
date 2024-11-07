@@ -35,6 +35,7 @@ const Welcome = () => {
                     <div className="d-flex flex-column w-100">
                         <Label>Email</Label>
                         <InputField
+                            type="email"
                             className="p-3"
                             value={emailAddress}
                             onChange={(e) => { onChangeEmailAddress(e.target.value) }}

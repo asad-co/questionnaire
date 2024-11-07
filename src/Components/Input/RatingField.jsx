@@ -3,15 +3,6 @@ import "./rating.css"
 
 const RatingField = ({ children, maxRating, currentRating, updateRating }) => {
 
-    const [hover, setHover] = useState(0);
-
-    const handleMouseOver = (newHover) => {
-        setHover(newHover);
-    };
-
-    const handleMouseOut = () => {
-        setHover(0);
-    };
 
     const handleClick = (newRating) => {
         updateRating(newRating);
@@ -25,8 +16,6 @@ const RatingField = ({ children, maxRating, currentRating, updateRating }) => {
                     <button
                         key={index}
                         className={`rating-button ${index <= currentRating ? 'rating-button-active' : ''}`}
-                        onMouseOver={() => handleMouseOver(index)}
-                        onMouseOut={handleMouseOut}
                         onClick={() => handleClick(index)}
                     ></button>
                 ))}

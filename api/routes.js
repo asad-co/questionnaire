@@ -81,6 +81,14 @@ router.post('/choice', [
 
         const isEmailUsed = await isSurveyCompleted(email)
         if (isEmailUsed) {
+            const updateResult = await Model.updateOne(
+                { email: email },
+                { $set: { firstQuestion: shoes } }
+            );
+
+            if (updateResult.modifiedCount === 0) {
+                throw new Error("Failed to update firstQuestion in MongoDB");
+            }
             return res.status(200).json({ message: "Survey updated" })
         }
 
@@ -126,7 +134,15 @@ router.post('/score', [
 
         const isEmailUsed = await isSurveyCompleted(email)
         if (isEmailUsed) {
-            return res.status(409).json({ message: "Survey already completed" })
+            const updateResult = await Model.updateOne(
+                { email: email },
+                { $set: { secondQuestion: {comfort,looks,price} } }
+            );
+
+            if (updateResult.modifiedCount === 0) {
+                throw new Error("Failed to update firstQuestion in MongoDB");
+            }
+            return res.status(200).json({ message: "Survey updated" })
         }
 
         const { data, result } = await isSurveyInProgress(email)
@@ -190,8 +206,8 @@ router.post('/completed',[
                 .delete()
                 .eq('email', email)
             if (error) throw error
-            return res.status(200).json({ message: "Survey Saved" })
 
+            return res.status(200).json({ message: "Survey Saved" })
         }
         else {
             return res.status(400).json({ message: "survey not completed" });

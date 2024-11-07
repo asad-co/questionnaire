@@ -28,7 +28,13 @@ const isSurveyInProgress = async (email) => {
     return { data: data[0], result: true }
 }
 
-router.post('/startSurvey', async (req, res) => {
+router.post('/startSurvey', [
+    body('email').isEmail().withMessage("Please enter valid email")
+], async (req, res) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+        return res.status(400).json({ errors: errors.errors[0].msg });
+    }
     try {
         const email = req.body.email
         const isEmailUsed = await isSurveyCompleted(email)
@@ -61,16 +67,21 @@ router.post('/startSurvey', async (req, res) => {
     }
 });
 
-router.post('/choice', async (req, res) => {
+router.post('/choice', [
+    body('email').isEmail().withMessage("Please enter valid email"),
+    body('choice').isIn(['nike orange', 'nike black']).withMessage("Choice must be either 'nike orange' or 'nike black'"),
+    ], async (req, res) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+        return res.status(400).json({ errors: errors.errors[0].msg });
+    }
     try {
         const shoes = req.body.choice
         const email = req.body.email
-        if (!email || !['nike orange', 'nike black'].includes(shoes))
-            return res.status(400).json({ message: "invalid input" })
 
         const isEmailUsed = await isSurveyCompleted(email)
         if (isEmailUsed) {
-            return res.status(409).json({ message: "Survey already completed" })
+            return res.status(200).json({ message: "Survey updated" })
         }
 
         const { data, result } = await isSurveyInProgress(email)
@@ -97,6 +108,7 @@ router.post('/choice', async (req, res) => {
 
 
 router.post('/score', [
+    body('email').isEmail().withMessage("Please enter valid email"),
     body('comfort').isInt({ gt: 0, lt: 6 }).withMessage('Comfort must be a number between 1 and 5'),
     body('looks').isInt({ gt: 0, lt: 6 }).withMessage('Looks must be a number between 1 and 5'),
     body('price').isInt({ gt: 0, lt: 6 }).withMessage('Price must be a number between 1 and 5'),
@@ -130,7 +142,7 @@ router.post('/score', [
                 .from('temporary_questionnaire')
                 .update({
                     progress: updatedData,
-                    status : "completed"
+                    status: "completed"
                 })
                 .eq('email', email)
             if (error) throw error
@@ -143,7 +155,9 @@ router.post('/score', [
     }
 });
 
-router.post('/completed', async (req, res) => {
+router.post('/completed',[
+    body('email').isEmail().withMessage("Please enter valid email")
+], async (req, res) => {
     try {
         const email = req.body.email;
 
@@ -179,7 +193,7 @@ router.post('/completed', async (req, res) => {
             return res.status(200).json({ message: "Survey Saved" })
 
         }
-        else{
+        else {
             return res.status(400).json({ message: "survey not completed" });
         }
 

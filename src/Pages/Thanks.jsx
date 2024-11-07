@@ -7,11 +7,14 @@ import PrimaryButton from "../Components/Button/PrimaryButton"
 import BoxTitle from "../Components/Text/BoxTitle"
 import ComponentBox from "../Components/Box/ComponentBox"
 import { useNavigate } from "react-router-dom"
+import LeftImage from "../Components/Box/LeftImage"
 
 const Thanks = () => {
     const navigate = useNavigate()
     return (
         <Main>
+            <LeftImage/>
+
             <SubMain rightAligned={true}>
                 <ComponentBox isWelcome={true}>
                     <MainHeading>Thank you</MainHeading>

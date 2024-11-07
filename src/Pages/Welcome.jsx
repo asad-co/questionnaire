@@ -12,11 +12,13 @@ import Label from "../Components/Text/Label"
 import MainHeading from "../Components/Text/MainHeading"
 import questionnaireContext from "../Provider/context"
 import ComponentBox from "../Components/Box/ComponentBox"
+import LeftImage from "../Components/Box/LeftImage"
 
 const Welcome = () => {
     const { emailAddress, onChangeEmailAddress, beginSurvey } = useContext(questionnaireContext)
     return (
         <Main>
+            <LeftImage/>
             <SubMain rightAligned={true}>
                 <ComponentBox isWelcome={true}>
                     <MainHeading>Questionnaire</MainHeading>

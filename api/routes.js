@@ -21,11 +21,11 @@ const isSurveyInProgress = async (email) => {
         .from('temporary_questionnaire')
         .select()
         .eq("email", email)
-        
+
     if (error || !data || data.length === 0) {
         return { data: null, result: false }
     }
-    return { data:data[0], result: true }
+    return { data: data[0], result: true }
 }
 
 router.post('/startSurvey', async (req, res) => {
@@ -103,7 +103,7 @@ router.post('/score', [
 ], async (req, res) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
-        return res.status(400).json({ errors: errors.array() });
+        return res.status(400).json({ errors: errors.errors[0].msg });
     }
 
     try {
@@ -122,28 +122,19 @@ router.post('/score', [
             return res.status(404).json({ message: "survey not started" });
         }
         else {
-            
-            if (!data?.progress?.step1){
-                return res.status(400).json({message:"step 1 is not completed"})
+            if (!data?.progress?.step1) {
+                return res.status(400).json({ message: "step 1 is not completed" })
             }
-            const newEntry = await Model.create({
-                email:email,
-                firstQuestion:data.progress.step1,
-                secondQuestion:{
-                    comfort:comfort,
-                    looks:looks,
-                    price:price
-                }
-            })
-
-            if(!newEntry)
-                return res.status(500).json({ error: 'Failed to prcess' });
+            const updatedData = { step2: { comfort, looks, price }, ...data.progress }
             const { error } = await supabase
                 .from('temporary_questionnaire')
-                .delete()
+                .update({
+                    progress: updatedData,
+                    status : "completed"
+                })
                 .eq('email', email)
             if (error) throw error
-            return res.status(200).json({ message: "Survey completed" })
+            return res.status(200).json({ message: "Scores Saved" })
         }
 
     } catch (err) {
@@ -151,5 +142,52 @@ router.post('/score', [
         res.status(500).json({ error: 'Internal Server Error' });
     }
 });
+
+router.post('/completed', async (req, res) => {
+    try {
+        const email = req.body.email;
+
+        const isEmailUsed = await isSurveyCompleted(email)
+        if (isEmailUsed) {
+            return res.status(409).json({ message: "Survey completed" })
+        }
+
+        const { data, result } = await isSurveyInProgress(email)
+        if (!result) {
+            return res.status(404).json({ message: "survey not started" });
+        }
+
+        if (data.status === "completed") {
+            const newEntry = await Model.create({
+                email: email,
+                firstQuestion: data.progress.step1,
+                secondQuestion: {
+                    comfort: data.progress.step2.comfort,
+                    looks: data.progress.step2.looks,
+                    price: data.progress.step2.price
+                }
+            })
+
+            if (!newEntry)
+                return res.status(500).json({ error: 'Failed to process' });
+
+            const { error } = await supabase
+                .from('temporary_questionnaire')
+                .delete()
+                .eq('email', email)
+            if (error) throw error
+            return res.status(200).json({ message: "Survey Saved" })
+
+        }
+        else{
+            return res.status(400).json({ message: "survey not completed" });
+        }
+
+    } catch (err) {
+        console.log({ err });
+        res.status(500).json({ error: 'Internal Server Error' });
+    }
+});
+
 
 module.exports = router;

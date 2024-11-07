@@ -1,0 +1,21 @@
+.rating-input-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    width: 70vw;
+    background-color: white;
+    border-radius: 25px;
+    justify-content: space-between;
+  }
+  
+.rating-button{
+    width: 25px;
+    height: 25px;
+    border-radius: 100%;
+
+}
+.rating-button-active{
+    background-color: black;
+}
+  
+  

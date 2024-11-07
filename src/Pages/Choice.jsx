@@ -39,11 +39,13 @@ const Choice = () => {
                             <BoxTitle>Back</BoxTitle>
                         </PrimaryButton>
 
-                        <PrimaryButton className={"d-flex justify-content-between align-items-center gap-4 py-3 px-4"}>
+                        <PrimaryButton 
+                        onClick={()=>{navigate("/score")}}
+                        className={"d-flex justify-content-between align-items-center gap-4 py-3 px-4"}>
                             <BoxTitle>Next</BoxTitle>
                             <ArrowSVG direction={"right"} />
                         </PrimaryButton>
-                        
+
                     </div>
 
                 </ComponentBox>

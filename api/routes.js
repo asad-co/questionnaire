@@ -12,8 +12,9 @@ router.use(express.json());
 const isSurveyCompleted = async (email) => {
     const details = await Model.findOne({ email: email })
     if (details) {
-        return true
+        return details
     }
+    return false
 }
 
 const isSurveyInProgress = async (email) => {
@@ -48,7 +49,7 @@ router.post('/startSurvey', [
             .eq("email", email)
 
         if (!error && data && data.length > 0) {
-            return res.status(202).json({ step1: data?.progress?.step1,step2: data?.progress?.step2 });
+            return res.status(202).json({ step1: data[0]?.progress?.step1,step2: data[0]?.progress?.step2 });
         }
         else {
             const { error } = await supabase
@@ -182,10 +183,12 @@ router.post('/completed',[
 
     try {
         const email = req.body.email;
-
         const isEmailUsed = await isSurveyCompleted(email)
         if (isEmailUsed) {
-            return res.status(409).json({ message: "Survey completed" })
+            return res.status(200).json({ 
+                step1: isEmailUsed?.firstQuestion,
+                step2: isEmailUsed?.secondQuestion
+             })
         }
 
         const { data, result } = await isSurveyInProgress(email)
@@ -221,6 +224,9 @@ router.post('/completed',[
 
     } catch (err) {
         console.log({ err });
+        if (err.code === 11000) {
+            return res.status(409).json({ error: 'Email already exists' });
+        }
         res.status(500).json({ error: 'Internal Server Error' });
     }
 });

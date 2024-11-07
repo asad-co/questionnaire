@@ -14,14 +14,15 @@ import questionnaireContext from "../Provider/context"
 
 const Score = () => {
     const navigate = useNavigate()
-    const { errors, secondQuestion, onChangeSecondQuestion, submitScores, emailAddress } = useContext(questionnaireContext)
+    const { clearErrors, errors, secondQuestion, onChangeSecondQuestion, submitScores, emailAddress } = useContext(questionnaireContext)
 
     useEffect(() => {
+        clearErrors()
         if (!emailAddress) {
             navigate("/")
         }
     }, [])
-    console.log({errors})
+    
     return (
         <Main>
             <SubMain>
@@ -33,7 +34,7 @@ const Score = () => {
                     <div className="d-flex flex-column gap-3">
                         <RatingField
                             maxRating={5}
-                            currentRating={secondQuestion.comfort}
+                            currentRating={secondQuestion?.comfort}
                             updateRating={(value) => {
                                 onChangeSecondQuestion({ comfort: value })
                             }}>
@@ -45,7 +46,7 @@ const Score = () => {
                     <div className="d-flex flex-column gap-3">
                         <RatingField
                             maxRating={5}
-                            currentRating={secondQuestion.looks}
+                            currentRating={secondQuestion?.looks}
                             updateRating={(value) => {
                                 onChangeSecondQuestion({ looks: value })
                             }}>
@@ -57,7 +58,7 @@ const Score = () => {
                     <div className="d-flex flex-column gap-3">
                         <RatingField
                             maxRating={5}
-                            currentRating={secondQuestion.price}
+                            currentRating={secondQuestion?.price}
                             updateRating={(value) => {
                                 onChangeSecondQuestion({ price: value })
                             }}>

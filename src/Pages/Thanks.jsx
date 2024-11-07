@@ -8,9 +8,23 @@ import BoxTitle from "../Components/Text/BoxTitle"
 import ComponentBox from "../Components/Box/ComponentBox"
 import { useNavigate } from "react-router-dom"
 import LeftImage from "../Components/Box/LeftImage"
+import { useContext,useEffect } from "react"
+import questionnaireContext from "../Provider/context"
+import Error from "../Components/Text/Error"
 
 const Thanks = () => {
     const navigate = useNavigate()
+
+    const {clearErrors, emailAddress, completedSurvey} = useContext(questionnaireContext)
+
+
+    useEffect(()=>{
+        if(!emailAddress){
+            navigate("/")
+        }
+        completedSurvey()
+        clearErrors()
+    },[])
     return (
         <Main>
             <LeftImage/>
@@ -19,6 +33,7 @@ const Thanks = () => {
                 <ComponentBox isWelcome={true}>
                     <MainHeading>Thank you</MainHeading>
                     <SubHeading> for your feedback!</SubHeading>
+
                     <div className="d-flex justify-content-between w-75">
                         <PrimaryButton
                             onClick={() => { navigate("/score") }}

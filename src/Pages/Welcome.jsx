@@ -1,5 +1,5 @@
 
-import { useContext } from "react"
+import { useContext, useEffect } from "react"
 import ArrowSVG from "../assets/svgs/ArrowSVG"
 import Main from "../Components/Box/Main"
 import SubMain from "../Components/Box/SubMain"
@@ -16,7 +16,11 @@ import LeftImage from "../Components/Box/LeftImage"
 import Error from "../Components/Text/Error"
 
 const Welcome = () => {
-    const { emailAddress, onChangeEmailAddress, beginSurvey,errors } = useContext(questionnaireContext)
+    const { emailAddress, onChangeEmailAddress, beginSurvey,errors, clearErrors } = useContext(questionnaireContext)
+
+    useEffect(()=>{
+        clearErrors()
+    },[])
     return (
         <Main>
             <LeftImage/>

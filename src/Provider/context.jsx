@@ -36,9 +36,22 @@ export const QuestionnaireProvider = ({ children }) => {
         }))
     }
 
+    const clearErrors = () => {
+        setErrors({
+            welcome: "",
+            choices: "",
+            score: {
+                comfort: "",
+                looks: "",
+                price: "",
+            },
+            end: ""
+        })
+    }
+
     const beginSurvey = async () => {
         if (!emailAddress || !emailAddress.length > 0) {
-            setErrors(prev => ({ ...prev,welcome: "Please enter valid email" }))
+            setErrors(prev => ({ ...prev, welcome: "Please enter valid email" }))
             return
         }
         try {
@@ -53,9 +66,11 @@ export const QuestionnaireProvider = ({ children }) => {
 
             const jsonResponse = await response.json()
             if (response.status === 409) {
+                clearErrors()
                 navigate('/thanks');
             }
             if (response.status === 202) {
+                clearErrors()
                 setFirstQuestion(jsonResponse.step1)
                 setSecondQuestion(jsonResponse.step2)
                 if (!jsonResponse.step1) {
@@ -67,10 +82,11 @@ export const QuestionnaireProvider = ({ children }) => {
             }
 
             if (response.status === 201) {
+                clearErrors()
                 navigate('/choice');
             }
             else {
-                setErrors(prev => ({ ...prev,welcome: jsonResponse.message }))
+                setErrors(prev => ({ ...prev, welcome: jsonResponse.message }))
             }
 
         } catch (error) {
@@ -81,7 +97,7 @@ export const QuestionnaireProvider = ({ children }) => {
 
     const submitChoices = async () => {
         if (!firstQuestion || !firstQuestion.length > 0) {
-            setErrors(prev => ({ ...prev,choices: "Please Select One"}))
+            setErrors(prev => ({ ...prev, choices: "Please Select One" }))
             return
         }
         try {
@@ -99,13 +115,15 @@ export const QuestionnaireProvider = ({ children }) => {
 
             const jsonResponse = await response.json()
             if (response.status === 404) {
+                clearErrors()
                 navigate('/');
             }
             if (response.status === 202 || response.status === 200) {
+                clearErrors()
                 navigate('/score')
             }
             else {
-                setErrors(prev => ({ ...prev,choices: jsonResponse.message}))
+                setErrors(prev => ({ ...prev, choices: jsonResponse.message }))
             }
 
         } catch (error) {
@@ -116,18 +134,19 @@ export const QuestionnaireProvider = ({ children }) => {
 
     const submitScores = async () => {
         if (!secondQuestion?.comfort) {
-            console.log({secondQuestion})
             setErrors(prev => ({ ...prev, score: { ...prev.score, comfort: "Please Select One" } }))
             return
         }
         if (!secondQuestion?.looks) {
-            setErrors(prev => ({  ...prev ,score: { looks: "Please Select One"}}))
+            setErrors(prev => ({ ...prev, score: { looks: "Please Select One" } }))
             return
         }
         if (!secondQuestion?.price) {
-            setErrors(prev => ({ ...prev,score: { price: "Please Select One" }}))
+            setErrors(prev => ({ ...prev, score: { price: "Please Select One" } }))
             return
         }
+        
+        clearErrors()
 
         try {
             const response = await fetch(`${host}/api/score`, {
@@ -145,9 +164,11 @@ export const QuestionnaireProvider = ({ children }) => {
 
             const jsonResponse = await response.json()
             if (response.status === 404) {
+                clearErrors()
                 navigate('/');
             }
             if (response.status === 202 || response.status === 200) {
+                clearErrors()
                 navigate('/thanks')
             }
             else {
@@ -160,7 +181,7 @@ export const QuestionnaireProvider = ({ children }) => {
         }
     }
 
-    const completedSurvey = async ()=>{
+    const completedSurvey = async () => {
         try {
             const response = await fetch(`${host}/api/completed`, {
                 method: "POST",
@@ -174,10 +195,13 @@ export const QuestionnaireProvider = ({ children }) => {
 
             const jsonResponse = await response.json()
             if (response.status === 404) {
+                clearErrors()
                 navigate('/');
             }
             else {
-                setErrors({ ...prev, end: jsonResponse.message });
+                setFirstQuestion(jsonResponse.step1)
+                setSecondQuestion(jsonResponse.step2)
+                setErrors(prev => ({ ...prev, end: jsonResponse.message }));
             }
 
         } catch (error) {
@@ -192,7 +216,7 @@ export const QuestionnaireProvider = ({ children }) => {
                 emailAddress, onChangeEmailAddress, beginSurvey,
                 errors, firstQuestion, secondQuestion, onChangeFirstQuestion,
                 submitChoices, onChangeSecondQuestion,
-                submitScores, completedSurvey
+                submitScores, completedSurvey, clearErrors
             }}>
             {children}
         </questionnaireContext.Provider>

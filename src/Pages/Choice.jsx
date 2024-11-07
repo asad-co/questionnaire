@@ -18,12 +18,13 @@ import questionnaireContext from "../Provider/context"
 const Choice = () => {
     const navigate = useNavigate()
 
-    const {errors,firstQuestion, onChangeFirstQuestion, submitChoices, emailAddress} = useContext(questionnaireContext)
+    const {errors,firstQuestion, onChangeFirstQuestion, submitChoices, emailAddress, clearErrors} = useContext(questionnaireContext)
 
     useEffect(()=>{
         if(!emailAddress){
             navigate("/")
         }
+        clearErrors()
     },[])
     return (
         <Main>

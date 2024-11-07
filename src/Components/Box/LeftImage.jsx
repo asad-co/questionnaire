@@ -10,8 +10,6 @@ const LeftImage = () => {
             </div>
             <div className="shoeImg-abs">
                 <img src={shoeImg} alt={"hey"} className={`img-fluid `} />
-            </div>
-            <div className="shadow-abs">
                 <img src={shadowImg} alt={"hey"} className={`img-fluid `} />
             </div>
         </div>

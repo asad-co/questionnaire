@@ -10,12 +10,7 @@
     display: flex;
 }
 
-.right-align{
-    flex-direction: column;
-    width: 100%;
-    justify-content: end;
-    align-items: end;
-}
+
 
 .text-box{
     background: #EDB6D2;
@@ -28,10 +23,7 @@
     display: flex;
     flex-direction: column;
 }
-.welcome{
-    align-items: end;
-    width: 50%;
-}
+
 .non-welcome{
     width: 100%;
     justify-content: center;
@@ -42,23 +34,114 @@
 }
 .shoeImg-abs{
     position: absolute;
-    width: 40vw;
-    opacity: 1;
-    top:-20vh;
-    left: -60px;
 
 }
 .arrowImg-abs{
     position: absolute;
-    width: 40vw;
-    top:-30vh;
-    z-index: 10;
-    opacity: 0.6;
 }
-.shadow-abs{
-    position: absolute;
-    width: 30vw;
-    height: 20px;
-    bottom: -10vh;
+
+
+@media (min-width: 1280px) {
+    .shoeImg-abs{
+        width: 40vw;
+        opacity: 1;
+        top:-20vh;
+        left: -60px;
+    
+    }
+    .arrowImg-abs{
+        width: 40vw;
+        top:-30vh;
+        z-index: 10;
+        opacity: 0.6;
+    }
+}
+
+@media (min-width:1024px) {
+ 
+}
+
+
+@media (min-width: 1024px) and (max-width: 1279px) {
+    .subcomponent-box{
+        width: 75%;
+    }
+    .shoeImg-abs{
+        width: 30vw;
+        opacity: 1;
+        top:-20vh;
+        left: 0vw;
+    
+    }
+    .arrowImg-abs{
+        width: 25vw;
+        top:-40vh;
+        z-index: 10;
+        opacity: 0.6;
+    }
+}
+
+@media (min-width: 768px) and (max-width: 1023px) {
+    .subcomponent-box{
+        width: 80%;
+    }
+    .shoeImg-abs{
+        width: 30vw;
+        opacity: 1;
+        top:-15vh;
+        left: 0vw;
+    
+    }
+    .arrowImg-abs{
+        width: 25vw;
+        top:-25vh;
+        z-index: 10;
+        opacity: 0.6;
+    }
+}
+
+@media (min-width: 640px) and (max-width: 767px) {
+
+}
+@media (min-width: 768px){
+    .right-align{
+        flex-direction: column;
+        width: 100%;
+        justify-content: end;
+        align-items: end;
+    }
+    .welcome{
+        align-items: end;
+        width: 50%;
+    }
+}
+@media (max-width: 767px){
+    .shoeImg-abs{
+        width: 70vw;
+        opacity: 1;
+        top:-45vh;
+        left: 0vw;
+        z-index: -2;
+        
+    }
+    .arrowImg-abs{
+        width: 60vw;
+        top:-50vh;
+        z-index: -1;
+        opacity: 0.6;
+        left:-40px;
+    }
+    .right-align{
+        flex-direction: column;
+        width: 100%;
+        justify-content: center;
+        align-items: center;
+    }
+    .welcome{
+        align-items: center;
+        width: 100%;
+    }
+}
+@media (max-width: 639px) {
 
 }

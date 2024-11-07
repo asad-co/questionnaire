@@ -13,9 +13,10 @@ import MainHeading from "../Components/Text/MainHeading"
 import questionnaireContext from "../Provider/context"
 import ComponentBox from "../Components/Box/ComponentBox"
 import LeftImage from "../Components/Box/LeftImage"
+import Error from "../Components/Text/Error"
 
 const Welcome = () => {
-    const { emailAddress, onChangeEmailAddress, beginSurvey } = useContext(questionnaireContext)
+    const { emailAddress, onChangeEmailAddress, beginSurvey,errors } = useContext(questionnaireContext)
     return (
         <Main>
             <LeftImage/>
@@ -39,6 +40,7 @@ const Welcome = () => {
                             onChange={(e) => { onChangeEmailAddress(e.target.value) }}
                             placeholder={"Enter email address"} />
                     </div>
+                    <Error className="w-100 text-start">{errors['welcome']}</Error>
                     <PrimaryButton 
                     className="w-100 d-flex justify-content-between align-items-center p-4" 
                     onClick={beginSurvey}>

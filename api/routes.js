@@ -33,7 +33,7 @@ router.post('/startSurvey', [
 ], async (req, res) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
-        return res.status(400).json({ errors: errors.errors[0].msg });
+        return res.status(400).json({ message: errors.errors[0].msg });
     }
     try {
         const email = req.body.email
@@ -48,7 +48,7 @@ router.post('/startSurvey', [
             .eq("email", email)
 
         if (!error && data && data.length > 0) {
-            return res.status(202).json({ data: data });
+            return res.status(202).json({ step1: data?.progress?.step1,step2: data?.progress?.step2 });
         }
         else {
             const { error } = await supabase
@@ -73,7 +73,7 @@ router.post('/choice', [
     ], async (req, res) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
-        return res.status(400).json({ errors: errors.errors[0].msg });
+        return res.status(400).json({ message: errors.errors[0].msg });
     }
     try {
         const shoes = req.body.choice
@@ -123,7 +123,7 @@ router.post('/score', [
 ], async (req, res) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
-        return res.status(400).json({ errors: errors.errors[0].msg });
+        return res.status(400).json({ message: errors.errors[0].msg });
     }
 
     try {
@@ -174,6 +174,12 @@ router.post('/score', [
 router.post('/completed',[
     body('email').isEmail().withMessage("Please enter valid email")
 ], async (req, res) => {
+
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+        return res.status(400).json({ message: errors.errors[0].msg });
+    }
+
     try {
         const email = req.body.email;
 

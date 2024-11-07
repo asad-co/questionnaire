@@ -1,8 +1,8 @@
 import "./text.css"
 
-const Error = ({ children }) => {
+const Error = ({ children, className }) => {
     return (
-        <span className="error">
+        <span className={`error ${className}`}>
             {children}
         </span>
     )

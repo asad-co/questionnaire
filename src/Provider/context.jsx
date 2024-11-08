@@ -84,6 +84,8 @@ export const QuestionnaireProvider = ({ children }) => {
 
             if (response.status === 201) {
                 clearErrors()
+                setFirstQuestion("")
+                setSecondQuestion({})
                 navigate('/choice');
             }
             else {

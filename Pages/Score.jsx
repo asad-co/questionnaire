@@ -8,13 +8,13 @@ import SubHeading from "../Components/Text/SubHeading"
 import Error from "../Components/Text/Error"
 import ArrowSVG from "../assets/svgs/ArrowSVG"
 import PrimaryButton from "../Components/Button/PrimaryButton"
-import { useNavigate } from "react-router-dom"
+// import { useNavigate } from "react-router-dom"
 import { useContext, useEffect, useRef } from "react"
 import questionnaireContext from "../Provider/context"
 import LeftImage from "../Components/Box/LeftImage"
 
 const Score = () => {
-    const navigate = useNavigate()
+    // const navigate = useNavigate()
     const { clearErrors, errors, secondQuestion, onChangeSecondQuestion, submitScores, emailAddress } = useContext(questionnaireContext)
 
     const btnRef = useRef()
@@ -80,7 +80,7 @@ const Score = () => {
                     <div className="d-flex justify-content-between w-100">
 
                         <PrimaryButton
-                            onClick={() => { navigate("/choice") }}
+                            // onClick={() => { navigate("/choice") }}
                             theme={"secondary"}
                             className={"d-flex justify-content-between align-items-center gap-4 py-3 px-4"}>
                             <ArrowSVG direction={"left"} />

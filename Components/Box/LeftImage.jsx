@@ -7,11 +7,11 @@ const LeftImage = ({hideOnBig}) => {
     return (
         <div className={`left-image ${hideOnBigScreenClass}`}>
             <div className="arrowImg-abs">
-                <img src={arrowImg} alt={"hey"} className={`img-fluid `} />
+                {/* <img src={arrowImg} alt={"hey"} className={`img-fluid `} /> */}
             </div>
             <div className="shoeImg-abs">
-                <img src={shoeImg} alt={"hey"} className={`img-fluid `} />
-                <img src={shadowImg} alt={"hey"} className={`img-fluid `} />
+                {/* <img src={shoeImg} alt={"hey"} className={`img-fluid `} /> */}
+                {/* <img src={shadowImg} alt={"hey"} className={`img-fluid `} /> */}
             </div>
         </div>
     )

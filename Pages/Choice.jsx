@@ -1,4 +1,4 @@
-import { useNavigate } from "react-router-dom"
+
 import ComponentBox from "../Components/Box/ComponentBox"
 import Main from "../Components/Box/Main"
 import SubMain from "../Components/Box/SubMain"
@@ -17,7 +17,6 @@ import questionnaireContext from "../Provider/context"
 import LeftImage from "../Components/Box/LeftImage"
 
 const Choice = () => {
-    const navigate = useNavigate()
 
     const {errors,firstQuestion, onChangeFirstQuestion, submitChoices, emailAddress, clearErrors} = useContext(questionnaireContext)
 
@@ -61,7 +60,7 @@ const Choice = () => {
                     <div className="d-flex justify-content-between w-100">
 
                         <PrimaryButton 
-                        onClick={()=>{navigate("/")}}
+                        // onClick={()=>{navigate("/")}}
                         theme={"secondary"} 
                         className={"d-flex justify-content-between align-items-center gap-4 py-3 px-4"}>
                             <ArrowSVG direction={"left"} />

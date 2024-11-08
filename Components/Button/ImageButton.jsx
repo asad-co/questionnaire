@@ -13,8 +13,8 @@ const ImageButton = ({ label, onClick, disabled, children, style, className, btn
             className={`${className} image-button py-2 px-3 gap-3 position-relative ${selectedBtnClass}`} >
                 <div className="ellipse"></div>
             {children || label}
-            <img src={imgSrc} alt={altTxt} className={`img-fluid btn-img`} />
-            <img src={shadowImg} alt={"hey"} className={`img-fluid opacity-25`} />
+            {/* <img src={imgSrc} alt={altTxt} className={`img-fluid btn-img`} /> */}
+            {/* <img src={shadowImg} alt={"hey"} className={`img-fluid opacity-25`} /> */}
 
         </button>
     )

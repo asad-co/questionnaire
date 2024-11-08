@@ -6,7 +6,7 @@ import ArrowSVG from "../assets/svgs/ArrowSVG"
 import PrimaryButton from "../Components/Button/PrimaryButton"
 import BoxTitle from "../Components/Text/BoxTitle"
 import ComponentBox from "../Components/Box/ComponentBox"
-import { useNavigate } from "react-router-dom"
+// import { useNavigate } from "react-router-dom"
 import LeftImage from "../Components/Box/LeftImage"
 import { useContext, useEffect, useRef } from "react"
 import questionnaireContext from "../Provider/context"
@@ -14,7 +14,7 @@ import Error from "../Components/Text/Error"
 import SmRightAlignedBox from "../Components/Box/SmRightAlignedBox"
 
 const Thanks = () => {
-    const navigate = useNavigate()
+    // const navigate = useNavigate()
 
     const { clearErrors, emailAddress, completedSurvey } = useContext(questionnaireContext)
     const btnRefHome = useRef()
@@ -22,7 +22,7 @@ const Thanks = () => {
 
     useEffect(() => {
         if (!emailAddress) {
-            navigate("/")
+            // navigate("/")
         }
         completedSurvey(btnRefBack, btnRefHome)
         clearErrors()
@@ -40,7 +40,7 @@ const Thanks = () => {
                     <div className="d-flex justify-content-between w-100">
                         <PrimaryButton
                             btnRef={btnRefBack}
-                            onClick={() => { navigate("/score") }}
+                            // onClick={() => { navigate("/score") }}
                             theme={"secondary"}
                             className={"d-flex justify-content-between align-items-center gap-4 py-3 px-4"}>
                             <ArrowSVG direction={"left"} />
@@ -49,7 +49,7 @@ const Thanks = () => {
 
                         <PrimaryButton
                             btnRef={btnRefHome}
-                            onClick={() => { navigate("/") }}
+                            // onClick={() => { navigate("/") }}
                             theme={"tertiary"}
                             style={{
                                 minWidth: "fit-content"

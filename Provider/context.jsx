@@ -1,10 +1,10 @@
 import { createContext, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+// import { useNavigate } from 'react-router-dom';
 
 const questionnaireContext = createContext();
 
 export const QuestionnaireProvider = ({ children }) => {
-    const navigate = useNavigate();
+    // const navigate = useNavigate();
 
     const host = import.meta.env.VITE_BACKEND_URL;
 
@@ -68,17 +68,17 @@ export const QuestionnaireProvider = ({ children }) => {
             const jsonResponse = await response.json()
             if (response.status === 409) {
                 clearErrors()
-                navigate('/thanks');
+                // navigate('/thanks');
             }
             if (response.status === 202) {
                 clearErrors()
                 setFirstQuestion(jsonResponse.step1)
                 setSecondQuestion(jsonResponse.step2)
                 if (!jsonResponse.step1) {
-                    navigate('/choice');
+                    // navigate('/choice');
                 }
                 else {
-                    navigate('/score')
+                    // navigate('/score')
                 }
             }
 
@@ -86,7 +86,7 @@ export const QuestionnaireProvider = ({ children }) => {
                 clearErrors()
                 setFirstQuestion("")
                 setSecondQuestion({})
-                navigate('/choice');
+                // navigate('/choice');
             }
             else {
                 setErrors(prev => ({ ...prev, welcome: jsonResponse.message }))
@@ -121,11 +121,11 @@ export const QuestionnaireProvider = ({ children }) => {
             const jsonResponse = await response.json()
             if (response.status === 404) {
                 clearErrors()
-                navigate('/');
+                // navigate('/');
             }
             if (response.status === 202 || response.status === 200) {
                 clearErrors()
-                navigate('/score')
+                // navigate('/score')
             }
             else {
                 setErrors(prev => ({ ...prev, choices: jsonResponse.message }))
@@ -174,11 +174,11 @@ export const QuestionnaireProvider = ({ children }) => {
             const jsonResponse = await response.json()
             if (response.status === 404) {
                 clearErrors()
-                navigate('/');
+                // navigate('/');
             }
             if (response.status === 202 || response.status === 200) {
                 clearErrors()
-                navigate('/thanks')
+                // navigate('/thanks')
             }
             else {
                 setErrors({ ...prev, score: { price: jsonResponse.message } });
@@ -210,7 +210,7 @@ export const QuestionnaireProvider = ({ children }) => {
             const jsonResponse = await response.json()
             if (response.status === 404) {
                 clearErrors()
-                navigate('/');
+                // navigate('/');
             }
             else {
                 setFirstQuestion(jsonResponse.step1)

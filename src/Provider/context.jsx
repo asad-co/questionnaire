@@ -192,8 +192,8 @@ export const QuestionnaireProvider = ({ children }) => {
 
     const completedSurvey = async (btnRef1,btnRef2) => {
         try {
-            btnRef1.current.setAttribute("disabled", "true")
-            btnRef2.current.setAttribute("disabled", "true")
+            btnRef1?.current?.setAttribute("disabled", "true")
+            btnRef2?.current?.setAttribute("disabled", "true")
 
             const response = await fetch(`${host}/api/completed`, {
                 method: "POST",
@@ -220,8 +220,8 @@ export const QuestionnaireProvider = ({ children }) => {
             console.log("An error Occured")
             return false
         }  finally {
-            btnRef1.current.removeAttribute("disabled")
-            btnRef2.current.removeAttribute("disabled")
+            btnRef1?.current?.removeAttribute("disabled")
+            btnRef2?.current?.removeAttribute("disabled")
         }
     }
 

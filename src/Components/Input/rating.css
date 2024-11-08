@@ -6,14 +6,22 @@
     background-color: white;
     border-radius: 25px;
     justify-content: space-between;
+    transition: all 0.3s ease-in-out;
   }
+  
   
 .rating-button{
     width: 25px;
     height: 25px;
     border-radius: 100%;
+    transition: all 0.3s ease-in-out;
 
 }
+
+.rating-button-hover{
+    background-color: #5e5e5e;
+}
+
 .rating-button-active{
     background-color: black;
 }

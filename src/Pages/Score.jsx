@@ -9,13 +9,15 @@ import Error from "../Components/Text/Error"
 import ArrowSVG from "../assets/svgs/ArrowSVG"
 import PrimaryButton from "../Components/Button/PrimaryButton"
 import { useNavigate } from "react-router-dom"
-import { useContext, useEffect } from "react"
+import { useContext, useEffect, useRef } from "react"
 import questionnaireContext from "../Provider/context"
 import LeftImage from "../Components/Box/LeftImage"
 
 const Score = () => {
     const navigate = useNavigate()
     const { clearErrors, errors, secondQuestion, onChangeSecondQuestion, submitScores, emailAddress } = useContext(questionnaireContext)
+
+    const btnRef = useRef()
 
     useEffect(() => {
         clearErrors()
@@ -36,8 +38,9 @@ const Score = () => {
                     <Label>Question 2</Label>
                     <SubHeading>How important are these aspects for you?</SubHeading>
 
-                    <div className="d-flex flex-column gap-3">
+                    <div className="d-flex flex-column gap-3 w-100">
                         <RatingField
+                            className={"w-100"}
                             maxRating={5}
                             currentRating={secondQuestion?.comfort}
                             updateRating={(value) => {
@@ -48,8 +51,9 @@ const Score = () => {
                         <Error>{errors?.score?.['comfort']}</Error>
                     </div>
 
-                    <div className="d-flex flex-column gap-3">
+                    <div className="d-flex flex-column gap-3  w-100">
                         <RatingField
+                            className={"w-100"}
                             maxRating={5}
                             currentRating={secondQuestion?.looks}
                             updateRating={(value) => {
@@ -60,8 +64,9 @@ const Score = () => {
                         <Error>{errors?.score?.['looks']}</Error>
                     </div>
 
-                    <div className="d-flex flex-column gap-3">
+                    <div className="d-flex flex-column gap-3  w-100">
                         <RatingField
+                            className={"w-100"}
                             maxRating={5}
                             currentRating={secondQuestion?.price}
                             updateRating={(value) => {
@@ -83,8 +88,9 @@ const Score = () => {
                         </PrimaryButton>
 
                         <PrimaryButton
-                            onClick={submitScores}
+                            onClick={()=>submitScores(btnRef)}
                             theme={"tertiary"}
+                            btnRef={btnRef}
                             className={"d-flex justify-content-between align-items-center gap-4 py-3 px-4"}>
                             <BoxTitle>Send</BoxTitle>
                             <ArrowSVG direction={"right"} />

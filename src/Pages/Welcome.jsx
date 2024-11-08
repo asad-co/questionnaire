@@ -1,5 +1,5 @@
 
-import { useContext, useEffect } from "react"
+import { useContext, useEffect, useRef } from "react"
 import ArrowSVG from "../assets/svgs/ArrowSVG"
 import Main from "../Components/Box/Main"
 import SubMain from "../Components/Box/SubMain"
@@ -19,6 +19,7 @@ import SubComponentBox from "../Components/Box/SubComponentBox"
 const Welcome = () => {
     const { emailAddress, onChangeEmailAddress, beginSurvey, errors, clearErrors } = useContext(questionnaireContext)
 
+    const btnRef = useRef()
     useEffect(() => {
         clearErrors()
     }, [])
@@ -49,8 +50,9 @@ const Welcome = () => {
                         </div>
                         <Error className="w-100 text-start">{errors['welcome']}</Error>
                         <PrimaryButton
+                            btnRef={btnRef}
                             className="w-100 d-flex justify-content-between align-items-center p-4"
-                            onClick={beginSurvey}>
+                            onClick={()=>{beginSurvey(btnRef)}}>
                             <BoxTitle>Start Survey</BoxTitle>
                             <ArrowSVG direction={"right"} />
                         </PrimaryButton>

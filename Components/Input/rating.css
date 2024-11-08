@@ -15,11 +15,12 @@
     height: 25px;
     border-radius: 100%;
     transition: all 0.3s ease-in-out;
+    border: 1px solid black
 
 }
 
 .rating-button-hover{
-    background-color: #5e5e5e;
+    background-color: #8f8f8f;
 }
 
 .rating-button-active{

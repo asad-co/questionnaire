@@ -11,6 +11,7 @@ import PrimaryButton from "../Components/Button/PrimaryButton"
 import { useNavigate } from "react-router-dom"
 import { useContext, useEffect } from "react"
 import questionnaireContext from "../Provider/context"
+import LeftImage from "../Components/Box/LeftImage"
 
 const Score = () => {
     const navigate = useNavigate()
@@ -22,9 +23,13 @@ const Score = () => {
             navigate("/")
         }
     }, [])
-    
+
     return (
         <Main>
+
+            <LeftImage hideOnBig={true} />
+
+
             <SubMain>
                 <ComponentBox>
 

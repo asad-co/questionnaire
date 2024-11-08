@@ -14,6 +14,7 @@ import "../assets/imgs/orangeShoes.png"
 import ArrowSVG from "../assets/svgs/ArrowSVG"
 import { useContext, useEffect } from "react"
 import questionnaireContext from "../Provider/context"
+import LeftImage from "../Components/Box/LeftImage"
 
 const Choice = () => {
     const navigate = useNavigate()
@@ -28,6 +29,8 @@ const Choice = () => {
     },[])
     return (
         <Main>
+            <LeftImage hideOnBig={true}/>
+
             <SubMain>
                 <ComponentBox>
                     <Label>Question 1</Label>

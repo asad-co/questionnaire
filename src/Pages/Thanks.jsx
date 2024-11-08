@@ -34,7 +34,7 @@ const Thanks = () => {
                     <MainHeading>Thank you</MainHeading>
                     <SubHeading> for your feedback!</SubHeading>
 
-                    <div className="d-flex justify-content-between w-75">
+                    <div className="d-flex justify-content-between w-100">
                         <PrimaryButton
                             onClick={() => { navigate("/score") }}
                             theme={"secondary"}
@@ -46,7 +46,10 @@ const Thanks = () => {
                         <PrimaryButton
                             onClick={() => { navigate("/") }}
                             theme={"tertiary"}
-                            className={"d-flex justify-content-between align-items-center gap-4 py-3 px-4"}>
+                            style={{
+                                minWidth:"fit-content"
+                            }}
+                            className={"d-flex justify-content-between align-items-center gap-4 py-3 px-4 "}>
                             <BoxTitle>Back to Home</BoxTitle>
                             <ArrowSVG direction={"right"} />
                         </PrimaryButton>

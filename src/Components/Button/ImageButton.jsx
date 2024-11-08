@@ -1,4 +1,5 @@
 import "./button.css"
+import shadowImg from "../../assets/imgs/shadow.png"
 
 const ImageButton = ({ label, onClick, disabled, children, style, className, btnRef, type, imgSrc, altTxt, isSelected }) => {
     const selectedBtnClass = isSelected ? "selected-img-btn" : ""
@@ -9,10 +10,12 @@ const ImageButton = ({ label, onClick, disabled, children, style, className, btn
             style={style}
             disabled={disabled}
             onClick={onClick}
-            className={`${className} image-button py-4 px-5 gap-3 position-relative ${selectedBtnClass}`} >
+            className={`${className} image-button py-2 px-3 gap-3 position-relative ${selectedBtnClass}`} >
                 <div className="ellipse"></div>
             {children || label}
-            <img src={imgSrc} alt={altTxt} className={`img-fluid `} />
+            <img src={imgSrc} alt={altTxt} className={`img-fluid w-75`} />
+            <img src={shadowImg} alt={"hey"} className={`img-fluid opacity-25`} />
+
         </button>
     )
 }

@@ -114,6 +114,9 @@
         align-items: end;
         width: 50%;
     }
+    .hide-on-big{
+        display: none;
+    }
 }
 @media (max-width: 767px){
     .shoeImg-abs{

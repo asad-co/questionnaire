@@ -81,7 +81,11 @@ router.post('/choice', [
         const email = req.body.email
 
         const isEmailUsed = await isSurveyCompleted(email)
+
         if (isEmailUsed) {
+            if (isEmailUsed.firstQuestion === shoes) {
+                return res.status(200).json({ message: "Already updated" });
+            }
             const updateResult = await Model.updateOne(
                 { email: email },
                 { $set: { firstQuestion: shoes } }

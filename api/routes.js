@@ -229,7 +229,12 @@ router.post('/completed',[
     } catch (err) {
         console.log({ err });
         if (err.code === 11000) {
-            return res.status(409).json({ error: 'Email already exists' });
+            const existingData = await Model.findOne({ email: req.body.email });
+            return res.status(409).json({ 
+                error: 'Email already exists',
+                step1: existingData?.firstQuestion,
+                step2: existingData?.secondQuestion
+            });
         }
         res.status(500).json({ error: 'Internal Server Error' });
     }

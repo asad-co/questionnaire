@@ -191,6 +191,8 @@ export const QuestionnaireProvider = ({ children }) => {
     }
 
     const completedSurvey = async (btnRef1,btnRef2) => {
+        console.log({firstQuestion})
+        console.log({secondQuestion})
         try {
             btnRef1.current.setAttribute("disabled", "true")
             btnRef2.current.setAttribute("disabled", "true")

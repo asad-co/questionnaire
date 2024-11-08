@@ -12,7 +12,7 @@ import blackShoes from "../assets/imgs/blackShoes.png"
 import orangeShoes from "../assets/imgs/orangeShoes.png"
 import "../assets/imgs/orangeShoes.png"
 import ArrowSVG from "../assets/svgs/ArrowSVG"
-import { useContext, useEffect } from "react"
+import { useContext, useEffect, useRef } from "react"
 import questionnaireContext from "../Provider/context"
 import LeftImage from "../Components/Box/LeftImage"
 
@@ -20,6 +20,8 @@ const Choice = () => {
     const navigate = useNavigate()
 
     const {errors,firstQuestion, onChangeFirstQuestion, submitChoices, emailAddress, clearErrors} = useContext(questionnaireContext)
+
+    const btnRef = useRef()
 
     useEffect(()=>{
         if(!emailAddress){
@@ -67,7 +69,8 @@ const Choice = () => {
                         </PrimaryButton>
 
                         <PrimaryButton 
-                        onClick={submitChoices}
+                        btnRef={btnRef}
+                        onClick={()=>submitChoices(btnRef)}
                         className={"d-flex justify-content-between align-items-center gap-4 py-3 px-4"}>
                             <BoxTitle>Next</BoxTitle>
                             <ArrowSVG direction={"right"} />

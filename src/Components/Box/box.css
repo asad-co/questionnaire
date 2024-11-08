@@ -40,6 +40,14 @@
     position: absolute;
 }
 
+.sm-right-align{
+    display: flex;
+    flex-direction: column;
+    align-items: end;
+    justify-content: end;
+    text-align: end;
+    width: 100%;
+}
 
 @media (min-width: 1280px) {
     .shoeImg-abs{

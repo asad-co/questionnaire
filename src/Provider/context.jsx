@@ -49,12 +49,13 @@ export const QuestionnaireProvider = ({ children }) => {
         })
     }
 
-    const beginSurvey = async () => {
+    const beginSurvey = async (btnRef) => {
         if (!emailAddress || !emailAddress.length > 0) {
             setErrors(prev => ({ ...prev, welcome: "Please enter valid email" }))
             return
         }
         try {
+            btnRef.current.setAttribute("disabled", "true")
 
             const response = await fetch(`${host}/api/startSurvey`, {
                 method: "POST",
@@ -92,16 +93,18 @@ export const QuestionnaireProvider = ({ children }) => {
         } catch (error) {
             console.log("An error Occured")
             return false
+        }  finally {
+            btnRef.current.removeAttribute("disabled")
         }
     }
 
-    const submitChoices = async () => {
+    const submitChoices = async (btnRef) => {
         if (!firstQuestion || !firstQuestion.length > 0) {
             setErrors(prev => ({ ...prev, choices: "Please Select One" }))
             return
         }
         try {
-
+            btnRef.current.setAttribute("disabled", "true")
             const response = await fetch(`${host}/api/choice`, {
                 method: "POST",
                 headers: {
@@ -129,10 +132,12 @@ export const QuestionnaireProvider = ({ children }) => {
         } catch (error) {
             console.log("An error Occured")
             return false
+        }  finally {
+            btnRef.current.removeAttribute("disabled")
         }
     }
 
-    const submitScores = async () => {
+    const submitScores = async (btnRef) => {
         if (!secondQuestion?.comfort) {
             setErrors(prev => ({ ...prev, score: { ...prev.score, comfort: "Please Select One" } }))
             return
@@ -149,6 +154,8 @@ export const QuestionnaireProvider = ({ children }) => {
         clearErrors()
 
         try {
+            btnRef.current.setAttribute("disabled", "true")
+
             const response = await fetch(`${host}/api/score`, {
                 method: "POST",
                 headers: {
@@ -178,11 +185,16 @@ export const QuestionnaireProvider = ({ children }) => {
         } catch (error) {
             console.log("An error Occured")
             return false
+        }  finally {
+            btnRef.current.removeAttribute("disabled")
         }
     }
 
-    const completedSurvey = async () => {
+    const completedSurvey = async (btnRef1,btnRef2) => {
         try {
+            btnRef1.current.setAttribute("disabled", "true")
+            btnRef2.current.setAttribute("disabled", "true")
+
             const response = await fetch(`${host}/api/completed`, {
                 method: "POST",
                 headers: {
@@ -207,6 +219,9 @@ export const QuestionnaireProvider = ({ children }) => {
         } catch (error) {
             console.log("An error Occured")
             return false
+        }  finally {
+            btnRef1.current.removeAttribute("disabled")
+            btnRef2.current.removeAttribute("disabled")
         }
     }
 

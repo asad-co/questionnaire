@@ -8,34 +8,38 @@ import BoxTitle from "../Components/Text/BoxTitle"
 import ComponentBox from "../Components/Box/ComponentBox"
 import { useNavigate } from "react-router-dom"
 import LeftImage from "../Components/Box/LeftImage"
-import { useContext,useEffect } from "react"
+import { useContext, useEffect, useRef } from "react"
 import questionnaireContext from "../Provider/context"
 import Error from "../Components/Text/Error"
+import SmRightAlignedBox from "../Components/Box/SmRightAlignedBox"
 
 const Thanks = () => {
     const navigate = useNavigate()
 
-    const {clearErrors, emailAddress, completedSurvey} = useContext(questionnaireContext)
+    const { clearErrors, emailAddress, completedSurvey } = useContext(questionnaireContext)
+    const btnRefHome = useRef()
+    const btnRefBack = useRef()
 
-
-    useEffect(()=>{
-        if(!emailAddress){
+    useEffect(() => {
+        if (!emailAddress) {
             navigate("/")
         }
-        completedSurvey()
+        completedSurvey(btnRefBack, btnRefHome)
         clearErrors()
-    },[])
+    }, [])
     return (
         <Main>
-            <LeftImage/>
+            <LeftImage />
 
             <SubMain rightAligned={true}>
                 <ComponentBox isWelcome={true}>
-                    <MainHeading>Thank you</MainHeading>
-                    <SubHeading> for your feedback!</SubHeading>
-
+                    <SmRightAlignedBox>
+                        <MainHeading>Thank you</MainHeading>
+                        <SubHeading> for your feedback!</SubHeading>
+                    </SmRightAlignedBox>
                     <div className="d-flex justify-content-between w-100">
                         <PrimaryButton
+                            btnRef={btnRefBack}
                             onClick={() => { navigate("/score") }}
                             theme={"secondary"}
                             className={"d-flex justify-content-between align-items-center gap-4 py-3 px-4"}>
@@ -44,10 +48,11 @@ const Thanks = () => {
                         </PrimaryButton>
 
                         <PrimaryButton
+                            btnRef={btnRefHome}
                             onClick={() => { navigate("/") }}
                             theme={"tertiary"}
                             style={{
-                                minWidth:"fit-content"
+                                minWidth: "fit-content"
                             }}
                             className={"d-flex justify-content-between align-items-center gap-4 py-3 px-4 "}>
                             <BoxTitle>Back to Home</BoxTitle>

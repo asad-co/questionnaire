@@ -1,15 +1,46 @@
 .primary-button{
     background: #BBE94A;
     border-radius: 25px;
+    transition: all 0.3s ease-in-out;
+    border: 2px solid #BBE94A ;
 }
+.primary-button:hover{
+    background: #c8da9d;
+}
+.primary-button:disabled{
+    background: #b3b3b3;
+    border: 2px solid #b3b3b3 ;
+}
+
 .secondary-button{
     background: #EDB6D2;
     border-radius: 25px;
+    transition: all 0.3s ease-in-out;
+    border: 2px solid #EDB6D2 ;
 }
+
+.secondary-button:hover{
+    background: #916d7f;
+}
+.secondary-button:disabled{
+    background: rgb(87, 70, 70);
+    border: 2px solid #b3b3b3 ;
+}
+
 .tertiary-button{
     background: #FFF;
     border-radius: 25px;
+    transition: all 0.3s ease-in-out;
+    border: 2px solid #FFF ;
 }
+.tertiary-button:hover{
+    background: #CCC;
+}
+.tertiary-button:disabled{
+    background: rgb(88, 88, 88);
+    border: 2px solid #b3b3b3 ;
+}
+
 .image-button{
     display: flex;
     flex-direction: column;
@@ -19,10 +50,19 @@
     color: white;
     font-size: 19px;
     border-radius: 25px;
+    border: 4px solid rgb(63, 63, 63);
+    transition: all 0.3s ease-in-out;
+    max-width: 200px;
 }
-.selected-img-btn{
-    border: 1px solid white;
+
+.image-button:hover{
+    background: #888888;
 }
+.image-button:hover .ellipse{
+    background: #888888;
+    background-color: rgb(104, 88, 250);
+}
+
 .ellipse{
     width: 25px;
     height: 25px;
@@ -30,5 +70,19 @@
     border-radius: 100%;
     position: absolute;
     top:-13px;
+    transition: all 0.3s ease-in-out;
     background-color: white;
+}
+
+.selected-img-btn{
+    background: #888888;
+    border: 4px solid white;
+
+}
+.selected-img-btn .ellipse{
+    border: 4px solid blue;
+}
+.btn-img{
+    max-width: 120px !important;
+    height: auto;
 }

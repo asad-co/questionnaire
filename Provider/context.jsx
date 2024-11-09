@@ -1,5 +1,6 @@
 "use client"
 
+import { choice, score, startSurvey } from '@/Lib/Supabase';
 import { useRouter } from 'next/navigation';
 import { createContext, useState } from 'react';
 
@@ -59,20 +60,13 @@ export const QuestionnaireProvider = ({ children }) => {
         try {
             btnRef.current.setAttribute("disabled", "true")
 
-            const response = await fetch(`${host}/api/startSurvey`, {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify({ email: emailAddress })
-            });
+            const jsonResponse = await startSurvey(emailAddress)
 
-            const jsonResponse = await response.json()
-            if (response.status === 409) {
+            if (jsonResponse.status === 409) {
                 clearErrors()
                 router.push('/thanks');
             }
-            if (response.status === 202) {
+            if (jsonResponse.status === 202) {
                 clearErrors()
                 setFirstQuestion(jsonResponse.step1)
                 setSecondQuestion(jsonResponse.step2)
@@ -84,7 +78,7 @@ export const QuestionnaireProvider = ({ children }) => {
                 }
             }
 
-            if (response.status === 201) {
+            if (jsonResponse.status === 201) {
                 clearErrors()
                 setFirstQuestion("")
                 setSecondQuestion({})
@@ -109,23 +103,14 @@ export const QuestionnaireProvider = ({ children }) => {
         }
         try {
             btnRef.current.setAttribute("disabled", "true")
-            const response = await fetch(`${host}/api/choice`, {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify({
-                    email: emailAddress,
-                    choice: firstQuestion
-                })
-            });
 
-            const jsonResponse = await response.json()
-            if (response.status === 404) {
+            const jsonResponse = await choice(emailAddress,firstQuestion)
+
+            if (jsonResponse.status === 404) {
                 clearErrors()
                 router.push('/');
             }
-            if (response.status === 202 || response.status === 200) {
+            if (jsonResponse.status === 202 || jsonResponse.status === 200) {
                 clearErrors()
                 router.push('/score')
             }
@@ -160,25 +145,13 @@ export const QuestionnaireProvider = ({ children }) => {
         try {
             btnRef.current.setAttribute("disabled", "true")
 
-            const response = await fetch(`${host}/api/score`, {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify({
-                    email: emailAddress,
-                    comfort: secondQuestion.comfort,
-                    looks: secondQuestion.looks,
-                    price: secondQuestion.price
-                })
-            });
+            const jsonResponse = await score(emailAddress,secondQuestion.comfort,secondQuestion.looks, secondQuestion.price)
 
-            const jsonResponse = await response.json()
-            if (response.status === 404) {
+            if (jsonResponse.status === 404) {
                 clearErrors()
                 router.push('/');
             }
-            if (response.status === 202 || response.status === 200) {
+            if (jsonResponse.status === 202 || jsonResponse.status === 200) {
                 clearErrors()
                 router.push('/thanks')
             }

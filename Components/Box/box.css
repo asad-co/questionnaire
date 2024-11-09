@@ -35,10 +35,16 @@
 }
 .shoeImg-abs{
     position: absolute;
-
 }
+.shoeImg-abs img{
+    width: 60vh;
+}
+
 .arrowImg-abs{
     position: absolute;
+}
+.arrowImg-abs img{
+    width: 50vh;
 }
 
 .sm-right-align{
@@ -132,19 +138,19 @@
 }
 @media (max-width: 767px){
     .shoeImg-abs{
-        width: 70vw;
+        width: 60vw;
         opacity: 1;
-        top:-45vh;
-        left: 0vw;
+        top:-50vh;
+        left: 20vw;
         z-index: -2;
         
     }
     .arrowImg-abs{
-        width: 60vw;
+        width: 30vw;
         top:-50vh;
         z-index: -1;
         opacity: 0.6;
-        left:-40px;
+        left: 20vw;
     }
     .right-align{
         flex-direction: column;

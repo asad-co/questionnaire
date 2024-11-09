@@ -2,7 +2,7 @@ import "./box.css"
 
 const Main = ({ children }) => {
     return (
-        <main className="container_bootstrap main-box ">
+        <main className=" main-box ">
             {children}
         </main>
     )

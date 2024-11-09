@@ -1,20 +1,22 @@
-import ComponentBox from "../Components/Box/ComponentBox"
-import Main from "../Components/Box/Main"
-import SubMain from "../Components/Box/SubMain"
-import RatingField from "../Components/Input/RatingField"
-import BoxTitle from "../Components/Text/BoxTitle"
-import Label from "../Components/Text/Label"
-import SubHeading from "../Components/Text/SubHeading"
-import Error from "../Components/Text/Error"
-import ArrowSVG from "../assets/svgs/ArrowSVG"
-import PrimaryButton from "../Components/Button/PrimaryButton"
-import { useNavigate } from "react-router-dom"
+"use client"
+
+import ComponentBox from "@/Components/Box/ComponentBox"
+import Main from "@/Components/Box/Main"
+import SubMain from "@/Components/Box/SubMain"
+import RatingField from "@/Components/Input/RatingField"
+import BoxTitle from "@/Components/Text/BoxTitle"
+import Label from "@/Components/Text/Label"
+import SubHeading from "@/Components/Text/SubHeading"
+import Error from "@/Components/Text/Error"
+import ArrowSVG from "@/assets/svgs/ArrowSVG"
+import PrimaryButton from "@/Components/Button/PrimaryButton"
 import { useContext, useEffect, useRef } from "react"
-import questionnaireContext from "../Provider/context"
-import LeftImage from "../Components/Box/LeftImage"
+import questionnaireContext from "@/Provider/context"
+import LeftImage from "@/Components/Box/LeftImage"
+import { useRouter } from "next/navigation"
 
 const Score = () => {
-    const navigate = useNavigate()
+    const router = useRouter()
     const { clearErrors, errors, secondQuestion, onChangeSecondQuestion, submitScores, emailAddress } = useContext(questionnaireContext)
 
     const btnRef = useRef()
@@ -22,7 +24,7 @@ const Score = () => {
     useEffect(() => {
         clearErrors()
         if (!emailAddress) {
-            navigate("/")
+            router.push("/")
         }
     }, [])
 
@@ -30,8 +32,6 @@ const Score = () => {
         <Main>
 
             <LeftImage hideOnBig={true} />
-
-
             <SubMain>
                 <ComponentBox>
 
@@ -80,7 +80,7 @@ const Score = () => {
                     <div className="d-flex justify-content-between w-100">
 
                         <PrimaryButton
-                            onClick={() => { navigate("/choice") }}
+                            onClick={() => { router.push("/choice") }}
                             theme={"secondary"}
                             className={"d-flex justify-content-between align-items-center gap-4 py-3 px-4"}>
                             <ArrowSVG direction={"left"} />

@@ -53,8 +53,9 @@ export const QuestionnaireProvider = ({ children }) => {
     }
 
     const beginSurvey = async (btnRef) => {
-        if (!emailAddress || !emailAddress.length > 0) {
-            setErrors(prev => ({ ...prev, welcome: "Please enter valid email" }))
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailAddress || !emailRegex.test(emailAddress)) {
+            setErrors(prev => ({ ...prev, welcome: "Please enter a valid email" }))
             return
         }
         try {

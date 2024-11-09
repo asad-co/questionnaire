@@ -17,6 +17,7 @@
     border-radius: 25px;
     display: flex;
     flex-direction: column;
+    height: 25vh;
 }
 
 .component-box{

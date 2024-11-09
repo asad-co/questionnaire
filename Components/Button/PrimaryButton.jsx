@@ -4,7 +4,7 @@ const PrimaryButton = ({ label, onClick, disabled, children, style, className, b
     const themeClass = theme==="secondary"?"secondary-button":theme==="tertiary"?"tertiary-button":"primary-button"
 
     return (
-        <button type={type} ref={btnRef} style={style} disabled={disabled} onClick={onClick} className={`${className} ${themeClass}`}>
+        <button type={type} ref={btnRef} style={style} disabled={disabled} onClick={onClick} className={`${className} ${themeClass} btn-all`}>
             {children || label}
         </button>
     )

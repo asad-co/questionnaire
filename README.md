@@ -13,9 +13,9 @@ This full-stack application is designed to record survey based on questions. Thi
 
 ### Frontend
 
-- **Vite-React**: For building the user interface.
+- **Next JS**: For building the user interface.
 - **Context API**: For state management.
-- **React Router**: For navigation.
+- **Next Navigation**: For navigation.
 - **Fetch API**: For making HTTP requests.
 
 ### Backend
@@ -37,21 +37,24 @@ This full-stack application is designed to record survey based on questions. Thi
    ```bash
    cd questionnaire
    ```
-
-3. **Install dependencies**:
-   ```bash
-   npm install
-   ```
-
-4. **Set up environment variables**:
+3. **Set up environment variables**:
    Create a `.env` file in the root directory and add the following:
    ```
-   VITE_BACKEND_URL=node-js backend url
+   NEXT_PUBLIC_CLIENT_BACKEND_URL=node-js backend url
+   NEXT_PUBLIC_SUPABASE_ANON_KEY=YourSupabasePublicAnonKey
+   NEXT_PUBLIC_SUPABASE_URL=YourSupabaseURL
    ```
+
+4. **Install dependencies**:
+   ```bash
+   npm install
+   npm run build
+   ```
+
 
 5. **Run the application**:
    ```bash
-   npm start
+   npm run dev
    ```
 6. **For backend navigate to the api directory**:
    ```bash

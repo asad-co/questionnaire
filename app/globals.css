@@ -5,5 +5,7 @@
 
 
 body{
-    background: linear-gradient(291.34deg, #010101 0%, #4D4D4D 100%);
+    min-height: 100vh;
+    min-width: 100vw;
+    background: linear-gradient(291.34deg, #010101 0%, #4D4D4D 100%) no-repeat;
   }
